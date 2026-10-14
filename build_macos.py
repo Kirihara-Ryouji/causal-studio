@@ -32,7 +32,7 @@ def build(arch):
     if platform.machine() != arch:
         raise SystemExit(f"Use a native {arch} macOS runner; current interpreter is {platform.machine()}.")
     if sys.version_info[:2] != (3, 14):
-        raise SystemExit("Use Python 3.14 to match the pinned scientific dependencies.")
+        raise SystemExit("Use Python 3.12 to match the pinned scientific dependencies.")
     for tool in ("codesign", "pkgbuild", "hdiutil", "ditto", "lipo"):
         if not shutil.which(tool):
             raise SystemExit(f"Required macOS tool missing: {tool}")

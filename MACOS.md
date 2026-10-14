@@ -23,10 +23,10 @@
 
 ## 在 Mac 上构建
 
-使用与目标芯片匹配的 Python 3.14：
+使用与目标芯片匹配的 Python 3.12：
 
 ```bash
-python3.14 -m venv .venv-macos
+python3.12 -m venv .venv-macos
 source .venv-macos/bin/activate
 python -m pip install -r requirements-macos.lock
 python make_examples.py
