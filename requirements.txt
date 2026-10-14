@@ -1,0 +1,12 @@
+PySide6-Essentials>=6.10,<7
+numpy>=2.2,<2.5
+pandas>=2.2,<4
+scipy>=1.15,<2
+causal-learn>=0.1.4,<0.2
+tigramite>=5.2,<6
+lingam>=1.11,<2
+openpyxl>=3.1,<4
+pyinstaller>=6.16,<7
+pytest>=8,<10
+numba>=0.67,<1
+dcor>=0.7,<1

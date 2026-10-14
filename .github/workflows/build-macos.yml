@@ -1,0 +1,79 @@
+name: Build macOS installers
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, 'codex/macos-installer']
+    paths:
+      - 'causal_studio/**'
+      - 'launch.py'
+      - 'build_macos.py'
+      - 'requirements-macos.lock'
+      - 'packaging/**'
+      - 'make_examples.py'
+      - 'MACOS.md'
+      - '.github/workflows/build-macos.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: macOS ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+            python_arch: arm64
+          - runner: macos-15-intel
+            arch: x86_64
+            python_arch: x64
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MPLCONFIGDIR: ${{ github.workspace }}/build/matplotlib
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          architecture: ${{ matrix.python_arch }}
+          cache: pip
+          cache-dependency-path: requirements-macos.lock
+      - name: Install pinned dependencies
+        run: python -m pip install -r requirements-macos.lock
+      - name: Generate simulated examples
+        run: python make_examples.py
+      - name: Build app, run small-sample check, package installers
+        run: python build_macos.py --arch ${{ matrix.arch }}
+      - name: Save installers
+        uses: actions/upload-artifact@v7
+        with:
+          name: CausalStudio-macOS-${{ matrix.arch }}
+          compression-level: 0
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            dist/macos/${{ matrix.arch }}/*.pkg
+            dist/macos/${{ matrix.arch }}/*.dmg
+            dist/macos/${{ matrix.arch }}/manifest.json
+      - name: Save build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: macOS-diagnostics-${{ matrix.arch }}
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            output/macos-smoke/${{ matrix.arch }}/
+            build/macos/${{ matrix.arch }}/work/CausalStudio/warn-*.txt
