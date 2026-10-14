@@ -31,7 +31,7 @@ def build(arch):
         raise SystemExit("A real macOS host is required to build the application and installer.")
     if platform.machine() != arch:
         raise SystemExit(f"Use a native {arch} macOS runner; current interpreter is {platform.machine()}.")
-    if sys.version_info[:2] != (3, 14):
+    if sys.version_info[:2] != (3, 12):
         raise SystemExit("Use Python 3.12 to match the pinned scientific dependencies.")
     for tool in ("codesign", "pkgbuild", "hdiutil", "ditto", "lipo"):
         if not shutil.which(tool):
