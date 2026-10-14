@@ -27,10 +27,6 @@
 
 登录 GitHub 后下载构建产物，解压可获得 `.pkg`、`.dmg` 和含 SHA-256 的 `manifest.json`。双击 `.pkg` 按向导安装，或打开 `.dmg` 将 `CausalStudio.app` 拖入“应用程序”；无需安装 Python。
 
-当前构建采用临时签名，尚未完成 Apple Developer ID 签名与公证。首次打开若被系统拦截，确认来源后按“系统设置 → 隐私与安全性”中的提示允许打开。
-
-安装包在 GitHub Actions 中保留 30 天；过期后可重新构建。详情见 [macOS 安装与打包说明](https://github.com/Kirihara-Ryouji/causal-studio/blob/codex/macos-installer/MACOS.md)及[本次成功构建记录](https://github.com/Kirihara-Ryouji/causal-studio/actions/runs/38523282001)。
-
 ### Windows
 
 Windows x64 便携包名为 `CausalStudio-Windows-x64.zip`。解压后运行 `CausalStudio/CausalStudio.exe`，无需安装 Python。分发时需保留整个 `CausalStudio` 文件夹及其中的 `_internal`。
