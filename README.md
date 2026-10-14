@@ -4,7 +4,6 @@
 
 **当前版本：0.5.0** · **9 种因果发现算法** · **CSV / TSV / XLSX / DTA** · **最多 100,000 行、30 个分析变量**
 
-> 当前完整源码及打包配置位于 [codex/macos-installer 分支](https://github.com/Kirihara-Ryouji/causal-studio/tree/codex/macos-installer)，对应 [macOS 打包 PR](https://github.com/Kirihara-Ryouji/causal-studio/pull/1)。仓库首页提供本项目说明。
 
 ## 主要功能
 
