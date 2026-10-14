@@ -146,7 +146,7 @@ cd causal-studio
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe make_examples.py
 .\.venv\Scripts\python.exe launch.py
 ```
@@ -163,7 +163,7 @@ python make_examples.py
 python launch.py
 ```
 
-依赖安装完成后，正常分析和导出无需联网。Windows 与 macOS 使用各自已验证的依赖锁定文件。
+依赖安装完成后，正常分析和导出无需联网。Windows 新环境使用 `requirements.txt` 解析兼容依赖，`requirements-lock.txt` 记录已有构建环境的版本快照；macOS 使用经过原生构建验证的 `requirements-macos.lock`。
 
 ### 模拟示例
 
